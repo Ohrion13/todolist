@@ -1,0 +1,10 @@
+insert into task (Id_task, text, task_date, status, priority) values (1, 'Data entry', '2024/03/13', 'à valider', 1);
+insert into task (Id_task, text, task_date, status, priority) values (2, 'Organizing files', '2023/09/22', 'en cours', 4);
+insert into task (Id_task, text, task_date, status, priority) values (3, 'Filing paperwork', '2023/10/02', 'à valider', 2);
+insert into task (Id_task, text, task_date, status, priority) values (4, 'Data entry', '2023/12/31', 'à valider', 5);
+insert into task (Id_task, text, task_date, status, priority) values (5, 'Organizing files', '2023/12/22', 'en cours', 1);
+insert into task (Id_task, text, task_date, status, priority) values (6, 'Data entry', '2023/08/09', 'à valider', 5);
+insert into task (Id_task, text, task_date, status, priority) values (7, 'Meeting coordination', '2023/12/05', 'en attente', 2);
+insert into task (Id_task, text, task_date, status, priority) values (8, 'Organizing files', '2024/05/13', 'en attente', 1);
+insert into task (Id_task, text, task_date, status, priority) values (9, 'Invoicing', '2024/03/11', 'en attente', 4);
+insert into task (Id_task, text, task_date, status, priority) values (10, 'Email management', '2023/09/10', 'en attente', 5);

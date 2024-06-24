@@ -1,13 +1,14 @@
 <?php
-$text = 'Mytodolist!';
+include 'include/task.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Mytodolist</title>
 </head>
 <section class="vh-100" style="background-color: #eee;">
@@ -28,8 +29,7 @@ $text = 'Mytodolist!';
                             </div>
 
                             <div class="col-12">
-                                <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                                    class="btn btn-primary ">Ajouter une tâche</button>
+                                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary ">Ajouter une tâche</button>
                             </div>
 
                         </form>
@@ -44,17 +44,29 @@ $text = 'Mytodolist!';
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>Buy groceries for next week</td>
+
+                                    <?php
+
+                                    $query = $dbtodolist->prepare("SELECT priority, text FROM task;");
+                                    $query->execute();
+                                    $result = $query->fetchAll();
+
+                                    foreach ($result as $text) {
+                                        // echo '<td>' . $text . '</td>';
+                                        var_dump($text);
+                                    }
+
+                                    ?>
                                     <td>01 Janvier 2020</td>
                                     <td>En cours</td>
+
                                     <td>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-danger">Supprimer</button>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-success ms-1">Terminer</button>
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger">Supprimer</button>
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success ms-1">Terminer</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -63,10 +75,8 @@ $text = 'Mytodolist!';
                                     <td>01 Janvier 2020</td>
                                     <td>En cours</td>
                                     <td>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-danger">Supprimer</button>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-success ms-1">Terminer</button>
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger">Supprimer</button>
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success ms-1">Terminer</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -75,10 +85,8 @@ $text = 'Mytodolist!';
                                     <td>01 Janvier 2020</td>
                                     <td>En cours</td>
                                     <td>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-danger">Supprimer</button>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-success ms-1">Terminer</button>
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger">Supprimer</button>
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success ms-1">Terminer</button>
                                     </td>
                                 </tr>
                             </tbody>
