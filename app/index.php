@@ -2,6 +2,7 @@
 include 'include/task.php';
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,11 +21,19 @@ include 'include/task.php';
 
                         <h4 class="text-center my-3 pb-3 ttl">Mytodolist</h4>
 
-                        <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                        <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" action="" method="post">
                             <div class="col-12">
                                 <div data-mdb-input-init class="form-outline">
-                                    <input type="text" id="form1" class="form-control" placeholder="Entrer une tâche" />
-                                    <label class="form-label" for="form1"></label>
+                                    <label class="form-label" for="text">Tâches</label>
+                                    <input type="text" name="text" id="text" class="form-control" placeholder="Entrer une tâche" size="25" />
+
+                                    <label class="form-label" for="priority">Niveau de priorité</label>
+                                    <input type="text" name="priority" id="priority" class="form-control" placeholder="Entrer un nombre de 1 à 5" size="22" />
+
+                                    <label class="form-label" for="status">Status</label>
+                                    <input type="text" name="status" id="status" class="form-control" placeholder="Exemple : En attente" size="25" />
+
+                                    <input type="hidden" name="myToken" value="<?= $_SESSION['myToken'] ?>" />
                                 </div>
                             </div>
 
@@ -46,49 +55,39 @@ include 'include/task.php';
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
 
-                                    <?php
+                                <?php
 
-                                    $query = $dbtodolist->prepare("SELECT priority, text FROM task;");
-                                    $query->execute();
-                                    $result = $query->fetchAll();
+                                if (!empty($_POST)) {
 
-                                    foreach ($result as $text) {
-                                        // echo '<td>' . $text . '</td>';
-                                        var_dump($text);
+                                    if (isset($_SERVER['HTTP_REFERER']) && str_contains($_SERVER['HTTP_REFERER'], 'http://localhost:8080/')) {
+
+                                        if (isset($_SESSION['myToken']) && isset($_POST['myToken']) && $_SESSION['myToken'] === $_POST['myToken']) {
+
+                                            include 'include/add_to_database.php';
+                                        }
                                     }
+                                }
 
-                                    ?>
-                                    <td>01 Janvier 2020</td>
-                                    <td>En cours</td>
+                                include 'include/recover_database.php';
 
-                                    <td>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger">Supprimer</button>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success ms-1">Terminer</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Renew car insurance</td>
-                                    <td>01 Janvier 2020</td>
-                                    <td>En cours</td>
-                                    <td>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger">Supprimer</button>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success ms-1">Terminer</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Sign up for online course</td>
-                                    <td>01 Janvier 2020</td>
-                                    <td>En cours</td>
-                                    <td>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger">Supprimer</button>
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success ms-1">Terminer</button>
-                                    </td>
-                                </tr>
+
+                                if (!empty($_POST)) {
+
+                                    if (
+                                        isset($_POST['submit'])
+
+                                    ) {
+
+                                        $insert = $dbtodolist->prepare("INSERT INTO task(status) VALUES (:status)");
+
+                                        $insert->execute(
+                                            [':status' => strip_tags($_POST['status'])]
+                                        );
+                                    }
+                                }
+
+                                ?>
                             </tbody>
                         </table>
 
