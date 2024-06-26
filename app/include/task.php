@@ -18,8 +18,5 @@ try {
 
 session_start();
 
-if (!isset($_SESSION['myToken'])) {
-    $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
-}
 
 ?>

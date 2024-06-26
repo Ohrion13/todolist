@@ -1,5 +1,11 @@
 <?php
 include 'include/task.php';
+include 'include/security.php';
+
+if (isset($_SESSION['error'])) {
+    echo '<p>' . $errors[$_SESSION['error']] . '</p>';
+    unset($_SESSION['error']);
+}
 ?>
 
 
@@ -19,7 +25,7 @@ include 'include/task.php';
                 <div class="card rounded-3">
                     <div class="card-body p-4">
 
-                        <h4 class="text-center my-3 pb-3 ttl">Mytodolist</h4>
+                        <h1 class="text-center my-3 pb-3 ttl">Mytodolist</h4>
 
                         <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" action="" method="post">
                             <div class="col-12">
@@ -60,13 +66,9 @@ include 'include/task.php';
 
                                 if (!empty($_POST)) {
 
-                                    if (isset($_SERVER['HTTP_REFERER']) && str_contains($_SERVER['HTTP_REFERER'], 'http://localhost:8080/')) {
+                                    flawsCsrf ();
 
-                                        if (isset($_SESSION['myToken']) && isset($_POST['myToken']) && $_SESSION['myToken'] === $_POST['myToken']) {
-
-                                            include 'include/add_to_database.php';
-                                        }
-                                    }
+                                    include 'include/add_to_database.php';
                                 }
 
                                 include 'include/recover_database.php';
@@ -79,10 +81,10 @@ include 'include/task.php';
 
                                     ) {
 
-                                        $insert = $dbtodolist->prepare("INSERT INTO task(status) VALUES (:status)");
+                                        $modify = $dbtodolist->prepare("UPDATE task SET status = 'terminer' WHERE Id_task = 13");
 
-                                        $insert->execute(
-                                            [':status' => strip_tags($_POST['status'])]
+                                        $modify->execute(
+                                            ['status' => strip_tags($_POST['status'])]
                                         );
                                     }
                                 }
@@ -90,6 +92,14 @@ include 'include/task.php';
                                 ?>
                             </tbody>
                         </table>
+
+                        <?php
+
+                        if (!empty($errorsList)) {
+                            echo '<ul>' . implode(array_map(fn ($e) => '<li>' . $e . '</li>', $errorsList)) . '</ul>';
+                        }
+
+                        ?>
 
                     </div>
                 </div>
