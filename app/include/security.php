@@ -18,12 +18,12 @@ function flawsCsrf (){
         header('Location: http://localhost:8080/');
         exit;
     }
+    
 }
 
 $errors = [
     'csrf' => 'Votre session est invalide.',
     'referer' => 'D\'où venez vous ?',
 ];
-
 
 ?>

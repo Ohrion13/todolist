@@ -1,6 +1,6 @@
 <?php
 
-$query = $dbtodolist->prepare("SELECT priority, text, task_date, status FROM task;");
+$query = $dbtodolist->prepare("SELECT id_task, priority, text, task_date, status FROM task WHERE status <> 'terminer' ;");
 $query->execute();
 $result = $query->fetchAll();
 
@@ -11,14 +11,9 @@ foreach ($result as $task) {
     echo '<td>' . ($task['task_date']) . '</td>';
     echo '<td>' . ($task['status']) . '</td>';
     echo '<td>';
-    echo '<form>';
-    echo '<button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success ms-1" >Terminer</button>';
-    echo '<input type="hidden" name="end" value="end"';
-    
-    echo '<button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger">Supprimer</button>';
-    echo '<input type="hidden" name="delete" value="delete"';
-
-    echo '</form>';
+    echo '<a class="btn btn-success ms-1" href="?action=modify&id=' . $task['id_task'] . '">Modifier</a>';
+    echo '<a class="btn btn-success ms-1" href="?action=end&id=' . $task['id_task'] . '">Terminer</a>';
+    echo '<a class="btn btn-success ms-1" href="?action=delete&id=' . $task['id_task'] . '">Supprimer</a>';
     echo '</td>';
     echo '</tr>';
 }
