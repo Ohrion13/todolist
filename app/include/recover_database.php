@@ -11,9 +11,9 @@ foreach ($result as $task) {
     echo '<td>' . ($task['task_date']) . '</td>';
     echo '<td>' . ($task['status']) . '</td>';
     echo '<td>';
-    echo '<a class="btn btn-success ms-1" href="?action=modify&id=' . $task['id_task'] . '">Modifier</a>';
-    echo '<a class="btn btn-success ms-1" href="?action=end&id=' . $task['id_task'] . '">Terminer</a>';
-    echo '<a class="btn btn-success ms-1" href="?action=delete&id=' . $task['id_task'] . '">Supprimer</a>';
+    echo '<a class="btn" href="?action=modify&id=' . $task['id_task'] . '">Modifier</a>';
+    echo '<a class="btn" href="?action=end&id=' . $task['id_task'] . '">Terminer</a>';
+    echo '<a class="btn" href="?action=delete&id=' . $task['id_task'] . '">Supprimer</a>';
     echo '</td>';
     echo '</tr>';
 }

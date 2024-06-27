@@ -9,21 +9,23 @@ if (isset($_SESSION['error'])) {
 
 if (!empty($_POST)) {
 
-    flawsCsrf();
+    // flawsCsrf();
 
     include 'include/add_to_database.php';
 }
 
-    include 'include/end_task.php';
-    
-    include 'include/modify_task.php';
+include 'include/end_task.php';
 
-    include 'include/delete_task.php';
+include 'include/modify_task.php';
+
+include 'include/delete_task.php';
+
+
 ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -31,70 +33,86 @@ if (!empty($_POST)) {
     <link rel="stylesheet" href="css/style.css">
     <title>Mytodolist</title>
 </head>
-<section class="vh-100" style="background-color: #eee;">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col col-lg-9 col-xl-7">
-                <div class="card rounded-3">
-                    <div class="card-body p-4">
 
-                        <h1 class="text-center my-3 pb-3 ttl">Mytodolist</h4>
+<body>
+    <section>
+        <div class="container">
+            <div>
+                <div>
+                    <div class="card">
+                        <div class="card-body">
 
-                            <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" action="" method="post">
-                                <div class="col-12">
-                                    <div data-mdb-input-init class="form-outline">
-                                        <label class="form-label" for="text">Tâches</label>
-                                        <input type="text" name="text" id="text" class="form-control" placeholder="Entrer une tâche" size="25" />
+                            <h1 class="title">Mytodolist</h1>
 
-                                        <label class="form-label" for="priority">Niveau de priorité</label>
-                                        <input type="text" name="priority" id="priority" class="form-control" placeholder="Entrer un nombre de 1 à 5" size="22" />
+                            <form action="" method="post">
+                                <div>
+                                    <label for="text">Tâches</label>
+                                    <input type="text" name="text" id="text" class="form-control" placeholder="Entrer une tâche" size="25" />
 
-                                        <label class="form-label" for="status">Status</label>
-                                        <input type="text" name="status" id="status" class="form-control" placeholder="Exemple : En attente" size="25" />
+                                    <label for="priority">Niveau de priorité</label>
+                                    <input type="text" name="priority" id="priority" class="form-control" placeholder="Entrer un nombre de 1 à 5" size="22" />
 
-                                        <input type="hidden" name="myToken" value="<?= $_SESSION['myToken'] ?>" />
-                                    </div>
+                                    <label for="status">Status</label>
+                                    <input type="text" name="status" id="status" class="form-control" placeholder="Exemple : En attente, en cours" size="25" />
+
+                                    <input type="hidden" name="myToken" value="<?= $_SESSION['myToken'] ?>" />
+
                                 </div>
 
-                                <div class="col-12">
-                                    <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary ">Ajouter une tâche</button>
-                                </div>
-
+                                <button type="submit" name="submitTask" class="btn">Ajouter une tâche</button>
                             </form>
 
-                            <table class="table mb-4">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Priorité</th>
-                                        <th scope="col">Texte</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
+                            <form action="" method="post">
 
-                                <tbody>
+                                <label for="Filtre">Filtrer</label>
+                                <select name="Filtre" id="Filtre">
+                                    <option value="">Veuillez faire un choix</option>
+                                    <option value="0">Date de création</option>
+                                    <option value="1">Niveau de priorité</option>
+                                </select>
+                        </div>
 
-                                    <?php
-                                    include 'include/recover_database.php';
-                                    ?>
+                        <button type="submit" name="submitFilter" class="btn">Valider</button>
+                        </form>
 
-                                </tbody>
-                            </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Priorité</th>
+                                    <th>Texte</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
 
-                            <?php
+                            <tbody>
+                                
+                                <?php
 
-                            if (!empty($errorsList)) {
-                                echo '<ul>' . implode(array_map(fn ($e) => '<li>' . $e . '</li>', $errorsList)) . '</ul>';
-                            }
+                                include 'include/change_display_order.php';
 
-                            ?>
+                                include 'include/recover_database.php';
+
+                                ?>
+
+                            </tbody>
+                        </table>
+
+                        <?php
+
+                        if (!empty($errorsList)) {
+                            echo '<ul>' . implode(array_map(fn ($e) => '<li>' . $e . '</li>', $errorsList)) . '</ul>';
+                        }
+
+                        ?>
 
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+        </div>
+    </section>
+</body>
 
 </html>
