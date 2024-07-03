@@ -49,9 +49,6 @@ include 'include/delete_task.php';
                                     <label for="text">Tâches</label>
                                     <input type="text" name="text" id="text" class="form-control" placeholder="Entrer une tâche" size="25" />
 
-                                    <label for="priority">Niveau de priorité</label>
-                                    <input type="text" name="priority" id="priority" class="form-control" placeholder="Entrer un nombre de 1 à 5" size="22" />
-
                                     <label for="status">Status</label>
                                     <input type="text" name="status" id="status" class="form-control" placeholder="Exemple : En attente, en cours" size="25" />
 

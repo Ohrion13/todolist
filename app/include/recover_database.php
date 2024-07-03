@@ -1,6 +1,6 @@
 <?php
 
-$query = $dbtodolist->prepare("SELECT id_task, priority, text, task_date, status FROM task WHERE status <> 'terminer' ;");
+$query = $dbtodolist->prepare("SELECT id_task, priority, text, task_date, status FROM task WHERE status <> 'terminer' ORDER BY priority ASC ;");
 $query->execute();
 $result = $query->fetchAll();
 

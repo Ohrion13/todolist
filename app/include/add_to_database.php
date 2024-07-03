@@ -3,7 +3,7 @@
 $errorsList = [];
 
 if (isset($_POST['submitTask'])) {
-    
+
     if (!isset($_POST['text']) || strlen($_POST['text']) === 0) {
         $errorsList[] = 'Saisissez un nom de tâche valide';
     }
@@ -20,16 +20,24 @@ if (isset($_POST['submitTask'])) {
         $errorsList[] = 'Merci saisir 50 caractères maximums';
     }
 
-    if (!isset($_POST['priority']) || !is_numeric($_POST['priority']) || $_POST['priority'] < 0 || $_POST['priority'] > 6) {
-        $errorsList[] = 'Merci de saisir une priorité entre 1 et 5';
-    }
-
     if (empty($errorsList)) {
 
-        $insert = $dbtodolist->prepare("INSERT INTO task(priority, text, task_date, status) VALUES (:priority, :text, CURDATE(), :status)");
+        $insert = $dbtodolist->prepare("INSERT INTO task(priority, text, task_date, status) VALUES (0, :text, CURDATE(), :status)");
 
         $insert->execute(
-            [':priority' => strip_tags($_POST['priority']), ':text' => strip_tags($_POST['text']), ':status' => strip_tags($_POST['status'])]
+            [':text' => strip_tags($_POST['text']), ':status' => strip_tags($_POST['status'])]
         );
+
+        $update = $dbtodolist->prepare("
+            UPDATE task t 
+            JOIN (SELECT id_task, ROW_NUMBER() OVER (ORDER BY task_date ASC) AS new_priority
+                FROM task
+                WHERE status <> 'terminer'
+            ) AS ranked_tasks
+            ON t.id_task = ranked_tasks.id_task
+            SET t.priority = ranked_tasks.new_priority;
+        ");
+
+        $update->execute();
     }
 }
