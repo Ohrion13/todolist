@@ -67,17 +67,19 @@ include 'include/delete_task.php';
                                     <option value="0">Date de création</option>
                                     <option value="1">Niveau de priorité</option>
                                 </select>
+
+                                <button type="submit" name="submitFilter" class="btn">Valider</button>
                         </div>
 
-                        <button type="submit" name="submitFilter" class="btn">Valider</button>
                         </form>
 
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Priorité</th>
                                     <th>Texte</th>
-                                    <th>Date</th>
+                                    <th>Date de création</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -88,6 +90,8 @@ include 'include/delete_task.php';
                                 <?php
 
                                 include 'include/change_display_order.php';
+
+                                include 'include/filter.php';
 
                                 include 'include/recover_database.php';
 

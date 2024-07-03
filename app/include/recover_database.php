@@ -6,7 +6,11 @@ $result = $query->fetchAll();
 
 foreach ($result as $task) {
     echo '<tr>';
-    echo '<th scope="row">' . ($task['priority']) . '</th>';
+    echo '<td>';
+    echo '<a class="btn" href="?action=increase&id=' . $task['id_task'] . '">H</a>';
+    echo '<a class="btn" href="?action=decrease&id=' . $task['id_task'] . '">D</a>';
+    echo '</td>';
+    echo '<td scope="row">' . ($task['priority']) . '</td>';
     echo '<td>' . ($task['text']) . '</td>';
     echo '<td>' . ($task['task_date']) . '</td>';
     echo '<td>' . ($task['status']) . '</td>';
