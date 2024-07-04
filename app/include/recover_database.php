@@ -1,19 +1,20 @@
 <?php
 
-$query = $dbtodolist->prepare("SELECT id_task, priority, text, task_date, status FROM task WHERE status <> 'terminer' ORDER BY priority ASC ;");
+$query = $dbtodolist->prepare("SELECT id_task, priority, text, task_date, status, reminder_date FROM task WHERE status <> 'terminer' ORDER BY priority ASC ;");
 $query->execute();
 $result = $query->fetchAll();
 
 foreach ($result as $task) {
     echo '<tr>';
     echo '<td>';
-    echo '<a class="btn" href="?action=increase&id=' . $task['id_task'] . '">H</a>';
-    echo '<a class="btn" href="?action=decrease&id=' . $task['id_task'] . '">D</a>';
+    echo '<a href="?action=increase&id=' . $task['id_task'] . '">⬆️</a>';
+    echo '<a href="?action=decrease&id=' . $task['id_task'] . '">⬇️</a>';
     echo '</td>';
     echo '<td scope="row">' . ($task['priority']) . '</td>';
     echo '<td>' . ($task['text']) . '</td>';
     echo '<td>' . ($task['task_date']) . '</td>';
     echo '<td>' . ($task['status']) . '</td>';
+    echo '<td>' . ($task['reminder_date']) . '</td>';
     echo '<td>';
     echo '<a class="btn" href="?action=modify&id=' . $task['id_task'] . '">Modifier</a>';
     echo '<a class="btn" href="?action=end&id=' . $task['id_task'] . '">Terminer</a>';

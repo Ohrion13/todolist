@@ -9,11 +9,12 @@ if (!empty($_POST)) {
 
     $text = strip_tags($_POST['text']);
     $status = strip_tags($_POST['status']);
+    $reminder_date = strip_tags($_POST['reminder_date']);
 
-    $query = $dbtodolist->prepare("UPDATE task SET text = :text, status = :status WHERE id_task = :id");
+    $query = $dbtodolist->prepare("UPDATE task SET text = :text, status = :status, reminder_date = :reminder_date WHERE id_task = :id");
 
     $query->execute(
-        [':text' => $text, ':status' => $status, ':id' => intval($_GET['id'])]
+        [':text' => $text, ':status' => $status, ':reminder_date' => $reminder_date, ':id' => intval($_GET['id'])]
     );
     
     redirectTo('http://localhost:8080/index.php');
@@ -24,12 +25,13 @@ if (!empty($_GET) && isset($_GET['action']) && $_GET['action'] === 'modify' && i
 
     // flawsCsrf();
 
-    $query = $dbtodolist->prepare("SELECT id_task, text, status FROM task WHERE Id_task = :id;;");
+    $query = $dbtodolist->prepare("SELECT id_task, text, status, reminder_date FROM task WHERE Id_task = :id;;");
     $query->execute(['id' => intval($_GET['id'])]);
     $result = $query->fetch();
 
     $text = strip_tags($result['text']);
     $status = strip_tags($result['status']);
+    $reminder_date = strip_tags($result['reminder_date']);
 
     echo '<form action="" method="post">';
     echo '<div>';
@@ -39,6 +41,9 @@ if (!empty($_GET) && isset($_GET['action']) && $_GET['action'] === 'modify' && i
 
     echo '<label class="form-label" for="status">Status</label>';
     echo '<input name="status" id="status" value = "' . $status . '" />';
+
+    echo '<label for="reminder_date">Date de rappel</label>';
+    echo '<input type="date" name="reminder_date" id="reminder_date" value = "' . $reminder_date . '" />';
 
     echo '</div>';
 

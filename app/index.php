@@ -52,6 +52,9 @@ include 'include/delete_task.php';
                                     <label for="status">Status</label>
                                     <input type="text" name="status" id="status" class="form-control" placeholder="Exemple : En attente, en cours" size="25" />
 
+                                    <label for="reminder_date">Date de rappel</label>
+                                    <input type="date" name="reminder_date" id="reminder_date" class="form-control" />
+
                                     <input type="hidden" name="myToken" value="<?= $_SESSION['myToken'] ?>" />
 
                                 </div>
@@ -81,12 +84,13 @@ include 'include/delete_task.php';
                                     <th>Texte</th>
                                     <th>Date de création</th>
                                     <th>Status</th>
+                                    <th>Date de rappel</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                
+
                                 <?php
 
                                 include 'include/change_display_order.php';
