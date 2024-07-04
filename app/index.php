@@ -67,8 +67,8 @@ include 'include/delete_task.php';
                                 <label for="Filtre">Filtrer</label>
                                 <select name="Filtre" id="Filtre">
                                     <option value="">Veuillez faire un choix</option>
-                                    <option value="0">Date de création</option>
-                                    <option value="1">Niveau de priorité</option>
+                                    <option value="0">Tâches terminés</option>
+                                    <option value="1">Autres tâches</option>
                                 </select>
 
                                 <button type="submit" name="submitFilter" class="btn">Valider</button>
