@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include 'include/task.php';
 include 'include/security.php';
 
@@ -14,7 +16,7 @@ if (!empty($_POST)) {
     include 'include/add_to_database.php';
 }
 
-include 'include/end_task.php';
+// include 'include/end_task.php';
 
 include 'include/modify_task.php';
 
@@ -55,7 +57,7 @@ include 'include/delete_task.php';
                                     <label for="reminder_date">Date de rappel</label>
                                     <input type="date" name="reminder_date" id="reminder_date" class="form-control" />
 
-                                    <input type="hidden" name="myToken" value="<?= $_SESSION['myToken'] ?>" />
+                                    <input type="hidden" id="myToken" name="myToken" value="<?= $_SESSION['myToken'] ?>" />
 
                                 </div>
 
@@ -95,9 +97,10 @@ include 'include/delete_task.php';
 
                                 include 'include/change_display_order.php';
 
+                                include 'include/recover_database.php';
+
                                 include 'include/filter.php';
 
-                                include 'include/recover_database.php';
 
                                 ?>
 
@@ -118,6 +121,8 @@ include 'include/delete_task.php';
         </div>
         </div>
     </section>
+
+    <script type="module" src="js/script.js"></script>
 </body>
 
 </html>

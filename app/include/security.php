@@ -21,9 +21,33 @@ function flawsCsrf (){
     
 }
 
-$errors = [
-    'csrf' => 'Votre session est invalide.',
-    'referer' => 'D\'où venez vous ?',
-];
+
+function preventCSRFAPI(): void
+{
+    global $globalUrl;
+
+    if (!isset($_SERVER['HTTP_REFERER']) || !str_contains($_SERVER['HTTP_REFERER'], $globalUrl)) {
+        $error = 'referer';
+    }
+
+    if (!isset($_SESSION['myToken']) || !isset($_REQUEST['myToken']) || $_SESSION['myToken'] !== $_REQUEST['myToken']) {
+        $error = 'csrf';
+    }
+
+    if (isset($error)) triggerError($error);
+}
+
+
+function triggerError(string $error): void
+{
+    global $errors;
+
+    $response = [
+        'isOk' => false,
+        'errorMessage' => $errors[$error]
+    ];
+    echo json_encode($response);
+    exit;
+}
 
 ?>
