@@ -38,9 +38,9 @@ async function callFileDeleteTask (params) {
 }
 
 
-document.querySelectorAll("[data-end-id]").forEach(function(task) {
+document.querySelectorAll("[data-delete-id]").forEach(function(task) {
     task.addEventListener("click", function(e) {
 
-        callFileEndTask('action=end&id=' + task.dataset.endId + '&myToken=' + document.getElementById('myToken').value);
+        callFileDeleteTask('action=delete&id=' + task.dataset.deleteId + '&myToken=' + document.getElementById('myToken').value);
     });
 });

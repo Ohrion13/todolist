@@ -30,12 +30,12 @@ if ($_REQUEST['action'] === 'end' && isset($_REQUEST['id']) && is_numeric($_REQU
 if ($_REQUEST['action'] === 'delete' && isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])) {
 
     $query = $dbtodolist->prepare("DELETE FROM task WHERE id_task = :id;");
-    $isEndOk = $query->execute(['id' => intval($_REQUEST['id'])]);
+    $isDeleteOk = $query->execute(['id' => intval($_REQUEST['id'])]);
 
-    if (!$isEndOk) triggerError('modify_ko');
+    if (!$isDeleteOk) triggerError('modify_ko');
 
     echo json_encode([
-        'isOk' => $isEndOk,
+        'isOk' => $isDeleteOk,
         'id' => intval($_REQUEST['id']),
     ]);
 }

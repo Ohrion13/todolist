@@ -11,16 +11,12 @@ if (isset($_SESSION['error'])) {
 
 if (!empty($_POST)) {
 
-    // flawsCsrf();
-
     include 'include/add_to_database.php';
 }
 
-// include 'include/end_task.php';
-
 include 'include/modify_task.php';
 
-include 'include/delete_task.php';
+// include 'include/delete_task.php';
 
 
 ?>

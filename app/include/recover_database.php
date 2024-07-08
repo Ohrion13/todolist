@@ -29,7 +29,7 @@ foreach ($result as $task) {
     echo '<td>';
     echo '<a class="btn" href="?action=modify&id=' . $task['id_task'] . '">Modifier</a>';
     echo '<button class="btn" data-end-id="' . $task['id_task'] . '">Terminer</button>';
-    echo '<a class="btn" href="?action=delete&id=' . $task['id_task'] . '">Supprimer</a>';
+    echo '<button class="btn" data-delete-id="' . $task['id_task'] . '">Supprimer</a>';
     echo '</td>';
     echo '</tr>';
 }
